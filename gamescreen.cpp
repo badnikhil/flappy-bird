@@ -84,7 +84,15 @@ int renderGameScreen(sf::RenderWindow &window){
     float pipeSpawnInterval = 90.0f; 
     txt.setString(std::to_string(score));
     txt.setPosition(500,100);
-    int bestScore = loadHighScore();
+    
+    int bestScore = loadHighScore(); 
+
+    sf::Text highScoreText;
+    highScoreText.setFont(font);
+    highScoreText.setCharacterSize(40);
+    highScoreText.setFillColor(sf::Color::Yellow);
+    highScoreText.setPosition(50, 120);
+    highScoreText.setString("High Score: " + std::to_string(bestScore));
     while(window.isOpen()){
         // pipes
         pipeSpawnTimer++;
@@ -130,9 +138,11 @@ int renderGameScreen(sf::RenderWindow &window){
                 birdVelocityY = 0;
                 pipes.clear(); // Clear all pipes on collision
                 pipeSpawnTimer = 0; 
+                if(score > bestScore){saveHighScore(score);bestScore = score;}
                 score = 0;
                 txt.setString(std::to_string(score));
                 stopped = 1;
+                highScoreText.setString("High Score: " + std::to_string(bestScore));
                 // gameOverScreen(window);
             }
             
@@ -145,11 +155,12 @@ int renderGameScreen(sf::RenderWindow &window){
         // Check if bird hits top or bottom
         if(bird.getPosition().y <= 0 || bird.getPosition().y >= window.getSize().y - 100) {
             std::cout << "Hit boundary! Game Over!" << std::endl;
-            score = 0;
             bird.setPosition(400, 300);
             birdVelocityY = 0;
             pipes.clear();
             pipeSpawnTimer = 0;
+            if(score > bestScore){saveHighScore(score);bestScore = score;}
+            highScoreText.setString("High Score: " + std::to_string(bestScore));
             score = 0;
             txt.setString(std::to_string(score));
             stopped = 1;
@@ -216,7 +227,7 @@ int renderGameScreen(sf::RenderWindow &window){
         window.draw(exitbutton);
         window.draw(txt);
         window.draw(customcursor);
-        
+        window.draw(highScoreText);
         window.display();
         window.clear();
     }
