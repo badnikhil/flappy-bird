@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "gamescreen.h"
+#include "screens/gamescreen.h"
+
 int main() {
     
     sf::RenderWindow window(sf::VideoMode(sf::VideoMode :: getDesktopMode()),  "The Game",sf::Style::Fullscreen);

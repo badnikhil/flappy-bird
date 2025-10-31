@@ -1,11 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include "stdusages.h"
-#include "pipes.cpp"
-#include "gameover.h"
-#include "save_score.h"
+#include <filesystem>
+#include "screens/gamescreen.h"
+
 const float gravity = 1;
 float birdVelocityY = 0;
 const float jumpStrength = -10;
@@ -28,14 +25,14 @@ int renderGameScreen(sf::RenderWindow &window){
     sf::Font font;
 
     if(!font.loadFromFile("fonts/roboto.ttf")){
-        print("Failed to load Font\n");
+        std::cerr << "Failed to load font from: " << std::filesystem::current_path() / "fonts/roboto.ttf" << std::endl;
     }
-    if (!icon.loadFromFile("assets/favicon.png")) {
-        print("Failed to load icon!\n");
+    if (!icon.loadFromFile("assets/sprites/favicon.png")) {
+        std::cerr << "Failed to load icon from: " << std::filesystem::current_path() / "assets/sprites/favicon.png" << std::endl;
         return -1;
     }
-    if(!cursorImg.loadFromFile("assets/cursor.png")){
-        print("Failed to load cursor!\n");
+    if(!cursorImg.loadFromFile("assets/sprites/cursor.png")){
+        std::cerr << "Failed to load cursor from: " << std::filesystem::current_path() / "assets/sprites/cursor.png" << std::endl;
         return -1;
     }
     
@@ -52,15 +49,15 @@ int renderGameScreen(sf::RenderWindow &window){
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     
     sf::Texture birdtx;
-    if(!birdtx.loadFromFile("assets/bluebird-downflap.png")){
-        print("Error loading bird texture\n");
+    if(!birdtx.loadFromFile("assets/sprites/bluebird-downflap.png")){
+        std::cerr << "Error loading bird texture from: " << std::filesystem::current_path() / "assets/sprites/bluebird-downflap.png" << std::endl;
     }
     
     sf::Texture bgtx;
     customcursor.setOrigin(customcursor.getSize().x / 2, customcursor.getSize().y / 2);
 
-    if(!bgtx.loadFromFile("assets/background-day.png")){
-        print("Failed to load Background Texture\n");
+    if(!bgtx.loadFromFile("assets/sprites/background-day.png")){
+        std::cerr << "Failed to load Background Texture from: " << std::filesystem::current_path() / "assets/sprites/background-day.png" << std::endl;
         return -1;
     }
     
@@ -138,7 +135,10 @@ int renderGameScreen(sf::RenderWindow &window){
                 birdVelocityY = 0;
                 pipes.clear(); // Clear all pipes on collision
                 pipeSpawnTimer = 0; 
-                if(score > bestScore){saveHighScore(score);bestScore = score;}
+                if(score > bestScore){
+                    saveHighScore(score);
+                    bestScore = score;
+                }
                 score = 0;
                 txt.setString("Score: " + std::to_string(score));
                 stopped = 1;
@@ -159,7 +159,10 @@ int renderGameScreen(sf::RenderWindow &window){
             birdVelocityY = 0;
             pipes.clear();
             pipeSpawnTimer = 0;
-            if(score > bestScore){saveHighScore(score);bestScore = score;}
+            if(score > bestScore){
+                saveHighScore(score);
+                bestScore = score;
+            }
             highScoreText.setString("High Score: " + std::to_string(bestScore));
             score = 0;
             txt.setString("Score: " + std::to_string(score));
