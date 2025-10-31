@@ -19,7 +19,6 @@ int renderGameScreen(sf::RenderWindow &window){
     sf::CircleShape bird(50.f);
     sf::RectangleShape background(sf::Vector2f(window.getSize()));
     sf::RectangleShape backgroundAlt(sf::Vector2f(window.getSize()));
-    sf::CircleShape exitbutton(50);
     sf::RectangleShape customcursor(sf::Vector2f(50,50));
     bool  stopped = 0;
     sf::Image icon;
@@ -28,7 +27,7 @@ int renderGameScreen(sf::RenderWindow &window){
     sf::Text txt;
     sf::Font font;
 
-    if(!font.loadFromFile("fonts/badeenfont.ttf")){
+    if(!font.loadFromFile("fonts/roboto.ttf")){
         print("Failed to load Font\n");
     }
     if (!icon.loadFromFile("assets/favicon.png")) {
@@ -42,7 +41,13 @@ int renderGameScreen(sf::RenderWindow &window){
     
     customcursor.setTexture(&cursorImg);
     txt.setFont(font);
-    txt.setLetterSpacing(10);
+    txt.setCharacterSize(48);
+    txt.setFillColor(sf::Color::White);
+    txt.setOutlineColor(sf::Color::Black);
+    txt.setOutlineThickness(2.0f);
+    txt.setString("Score: " + std::to_string(1));
+    sf::FloatRect textBounds = txt.getLocalBounds();
+    txt.setPosition((window.getSize().x - textBounds.width) / 2.0f, 20);
  
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     
@@ -60,39 +65,34 @@ int renderGameScreen(sf::RenderWindow &window){
     }
     
     backgroundAlt.setTexture(&bgtx);
-    sf::Texture txbutton;
-    txbutton.loadFromFile("assets/close_100_100.png");
     
     // Load pipe textures
     Pipe::loadPipeTextures();
     
     background.setTexture(&bgtx);
     bird.setTexture(&birdtx);
-    exitbutton.setTexture(&txbutton);
-    exitbutton.setTextureRect(sf::IntRect(0, 0, txbutton.getSize().x, txbutton.getSize().y));
-    exitbutton.setPosition(200,200);
     
     bird.setPosition(400, 300);
     background.setPosition(0, 0);
     backgroundAlt.setPosition(window.getSize().x, 0);
-    exitbutton.setFillColor(sf::Color::Green);
-    int score = 1;
+    
+    int score = 0;
     
     // Pipe setup
     std::vector<Pipe> pipes;
     float pipeSpawnTimer = 0;
     float pipeSpawnInterval = 90.0f; 
-    txt.setString(std::to_string(score));
-    txt.setPosition(500,100);
     
     int bestScore = loadHighScore(); 
 
     sf::Text highScoreText;
     highScoreText.setFont(font);
-    highScoreText.setCharacterSize(40);
+    highScoreText.setCharacterSize(32);
     highScoreText.setFillColor(sf::Color::Yellow);
-    highScoreText.setPosition(50, 120);
+    highScoreText.setOutlineColor(sf::Color::Black);
+    highScoreText.setOutlineThickness(1.5f);
     highScoreText.setString("High Score: " + std::to_string(bestScore));
+    highScoreText.setPosition(20, 20);
     while(window.isOpen()){
         // pipes
         pipeSpawnTimer++;
@@ -140,7 +140,7 @@ int renderGameScreen(sf::RenderWindow &window){
                 pipeSpawnTimer = 0; 
                 if(score > bestScore){saveHighScore(score);bestScore = score;}
                 score = 0;
-                txt.setString(std::to_string(score));
+                txt.setString("Score: " + std::to_string(score));
                 stopped = 1;
                 highScoreText.setString("High Score: " + std::to_string(bestScore));
                 // gameOverScreen(window);
@@ -148,7 +148,7 @@ int renderGameScreen(sf::RenderWindow &window){
             
             if(pipe.hasPassed(bird)) {
                 score++;
-                txt.setString(std::to_string(score));
+                txt.setString("Score: " + std::to_string(score));
             }
         }
         
@@ -162,7 +162,7 @@ int renderGameScreen(sf::RenderWindow &window){
             if(score > bestScore){saveHighScore(score);bestScore = score;}
             highScoreText.setString("High Score: " + std::to_string(bestScore));
             score = 0;
-            txt.setString(std::to_string(score));
+            txt.setString("Score: " + std::to_string(score));
             stopped = 1;
         }
         
@@ -185,22 +185,8 @@ int renderGameScreen(sf::RenderWindow &window){
                     birdVelocityY = jumpStrength;
                 }
             }
-            
-            // Close button
-            if(event.type == sf::Event::MouseButtonPressed && 
-               event.mouseButton.button == sf::Mouse::Left){
-                if(customcursor.getGlobalBounds().intersects(exitbutton.getGlobalBounds())){
-                    window.close();
-                }
-            }
         }
         
-        // Exit button hover
-        if(customcursor.getGlobalBounds().intersects(exitbutton.getGlobalBounds())){
-            exitbutton.setFillColor(sf::Color(200, 200, 200));
-        } else {
-            exitbutton.setFillColor(sf::Color::White);
-        }
         //  moving background
         if(!stopped){
         background.move(-SCROLL_SPEED, 0);
@@ -224,7 +210,6 @@ int renderGameScreen(sf::RenderWindow &window){
         }
         
         window.draw(bird);
-        window.draw(exitbutton);
         window.draw(txt);
         window.draw(customcursor);
         window.draw(highScoreText);
