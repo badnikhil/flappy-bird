@@ -12,7 +12,7 @@ void StateMachine::processStateChanges(){
     if(_isRemoving && !this -> _States.empty()){
         this->_States.pop();
         if(!_States.empty()){
-           this -> _States.top()->resume();
+           this -> _States.top()->Resume();
         }
         this -> _isRemoving = false;
     }
@@ -21,11 +21,11 @@ void StateMachine::processStateChanges(){
         if(this -> _isReplacing){
             _States.pop();
         }
-        else _States.top()->pause();
+        else _States.top()->Pause();
     
         }
         this -> _States.push(std::move(this -> _newState));
-        _States.top() -> init();
+        _States.top() -> Init();
         _isAdding = false;
     }
 

@@ -2,11 +2,11 @@
 #define STATE_H
 class State{
      public:
-        virtual void init() = 0;
-        virtual void handleinput() = 0;
-        virtual void update(float dt) = 0;
-        virtual void pause() = 0;
-        virtual void resume() = 0;
-        virtual void draw(float dt) = 0;
+        virtual void Init() = 0;
+        virtual void HandleInput() = 0;
+        virtual void Update(float dt) = 0;
+        virtual void Pause() = 0;
+        virtual void Resume() = 0;
+        virtual void Draw(float dt) = 0;
 };
 #endif

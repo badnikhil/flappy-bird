@@ -1,8 +1,11 @@
-#include "../include/game/Game.h"
+#include "../../include/game/Game.h"
+#include "../../include/SplashState/SplashState.h"
 
 
-Game::Game(int height , int width , std::string title){
+Game::Game(int width , int height , std::string title){
+    srand(time(NULL));
     _data -> window.create(sf::VideoMode(width,height) , title , sf::Style::Close | sf::Style::Titlebar);
+    _data -> machine.addState(StateRef(new SplashState(_data)));
     run();
 }
 void Game::run(){
@@ -19,11 +22,11 @@ while(_data -> window.isOpen()){
     currTime = newTime;
     accumulator += frameTime;
     while(accumulator > dt){
-        _data -> machine.getActiveState()-> handleinput();
-        _data -> machine.getActiveState()-> update(dt);
+        _data -> machine.getActiveState()-> HandleInput();
+        _data -> machine.getActiveState()-> Update(dt);
         accumulator -= dt;
         }
     interpolation = accumulator / dt;
-    _data -> machine.getActiveState()->draw(interpolation);
+    _data -> machine.getActiveState()->Draw(interpolation);
     }
 }

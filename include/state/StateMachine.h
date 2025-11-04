@@ -15,7 +15,7 @@ class StateMachine{
         StateMachine( ){ }
         ~StateMachine( ){ }
 
-        void addState(StateRef newState , bool isReplacing); 
+        void addState(StateRef newState , bool isReplacing = false); 
         void removeState();
         void processStateChanges();
         StateRef &getActiveState();

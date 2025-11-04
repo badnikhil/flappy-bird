@@ -17,11 +17,17 @@ include_directories(
 # Add executable
 add_executable(${PROJECT_NAME} 
     src/main.cpp
-    src/screens/gamescreen.cpp
-    src/screens/gameover.cpp
-    src/game/pipes.cpp
-    src/utils/save_score.cpp
-    src/utils/stdusages.cpp
+    src/InputManager/InputManager.cpp
+    src/asset/AssetManager.cpp
+    src/game/Game.cpp
+    src/state/StateMachine.cpp
+    src/SplashState/SplashState.cpp
+    src/screens/MainMenuState.cpp
+    src/screens/GameState.cpp
+    src/screens/GameOverState.cpp
+    src/game/Pipe.cpp
+    src/game/Land.cpp
+    src/game/Bird.cpp
 )
 
 # Link SFML libraries

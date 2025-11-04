@@ -1,12 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include "screens/gamescreen.h"
+#include "../include/game/Game.h"
+#include "../include/DEFINITIONS.h"
 
 int main() {
-    
-    sf::RenderWindow window(sf::VideoMode(sf::VideoMode :: getDesktopMode()),  "The Game",sf::Style::Fullscreen);
-    window.setMouseCursorVisible(false);
-    window.setFramerateLimit(30);
-    renderGameScreen(window);
-    int screen = 0;
-    return 0;
+    Game(SCREEN_WIDTH , SCREEN_HEIGHT , "Lets see");
+    return EXIT_SUCCESS;
+ 
 }
