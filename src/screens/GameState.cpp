@@ -58,6 +58,13 @@ void GameState::Update(float dt){
 
             this->_clock.restart();
         }
+        const std::vector<sf::Sprite> landSprites = land->GetSprites();
+        const sf::Sprite birdSprite = bird->GetSprite();
+        for(int i = 0 ;i < landSprites.size();i++){
+            if(collision.CheckSpriteCollision(birdSprite,landSprites.at(i))){
+                _gameState = GameStates::eGameOver;
+            }
+        }
         
     }
     
