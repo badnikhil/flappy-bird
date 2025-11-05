@@ -28,6 +28,9 @@ add_executable(${PROJECT_NAME}
     src/game/Pipe.cpp
     src/game/Land.cpp
     src/game/Bird.cpp
+    src/game/Collision.cpp
+    src/game/Flash.cpp
+    src/game/HUD.cpp
 )
 
 # Link SFML libraries

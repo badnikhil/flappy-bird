@@ -1,6 +1,5 @@
 #include "../../include/game/Pipe.h"
 #include "../../include/DEFINITIONS.h"
-#include <iostream>
 
 Pipe::Pipe(GameDataRef data): _data(data){
     _landHeight = _data->assets.GetTexture("Land").getSize().y;
@@ -24,10 +23,10 @@ void Pipe::SpawnTopPipe(){
     pipe.setPosition(_data ->window.getSize().x , - _pipeSpawnYOffset);
     pipeSprites.push_back(pipe);
 }
-void Pipe::SpawnInvisiblePipe(){
-    sf::Sprite pipe(_data->assets.GetTexture("Pipe Down"));
-    pipe.setPosition(_data ->window.getSize().x , - _pipeSpawnYOffset);
-    pipeSprites.push_back(pipe);
+void Pipe::SpawnScoringLines(){
+    sf::RectangleShape line({1,(float)_data->window.getSize().y});
+    line.setPosition(_data ->window.getSize().x + _data->assets.GetTexture("Pipe Up").getSize().x ,0);
+    scoringLines.push_back(line);
 }
 void Pipe::MovePipes(float dt){
     for(int i = 0 ; i < pipeSprites.size() ; i++){
@@ -35,12 +34,28 @@ void Pipe::MovePipes(float dt){
         if(pipeSprites[i].getPosition().x < 0 - pipeSprites[i].getGlobalBounds().width){
             pipeSprites.erase(pipeSprites.begin() + i);
         }
-        else 
+        else {
         pipeSprites.at(i).move(-movement, 0);
+        }
         
-	}   
+	}
+    for(int i = 0 ; i < scoringLines.size() ; i++){
+        float movement = PIPE_MOVEMENT_SPEED * dt;
+        if(scoringLines[i].getPosition().x < 0 - scoringLines[i].getGlobalBounds().width){
+            scoringLines.erase(scoringLines.begin() + i);
+        }
+        else {
+        scoringLines.at(i).move(-movement , 0);
+        }
+        
+	} 
 }
 void Pipe::RandomisePipeOffset(){
     _pipeSpawnYOffset = rand() % (_landHeight + 1);
-    std::cout<<_pipeSpawnYOffset<<std::endl;
+}
+const std::vector<sf::Sprite>& Pipe::GetSprites() const {
+    return pipeSprites;
+}
+ std::vector<sf::RectangleShape>& Pipe::GetScoringLines()  {
+    return scoringLines;
 }

@@ -9,15 +9,18 @@ class Pipe{
     
     void SpawnBottomPipe();
     void SpawnTopPipe();
-    void SpawnInvisiblePipe();
+    void SpawnScoringLines();
     void MovePipes(float dt);
     void DrawPipes();
     void RandomisePipeOffset();
+    const std::vector<sf::Sprite> &GetSprites()const;
+    std::vector<sf::RectangleShape> &GetScoringLines();
 
 
     private:
     GameDataRef _data;
     std::vector<sf::Sprite> pipeSprites;
+    std::vector<sf::RectangleShape> scoringLines;
     int _landHeight;
     int _pipeSpawnYOffset;
 

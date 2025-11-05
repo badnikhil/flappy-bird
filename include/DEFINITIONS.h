@@ -10,8 +10,10 @@
 #define SPLASH_SCREEN_BG_FILEPATH "assets/sprites/background-day.png"
 
 #define MAIN_MENU_BG_FILEPATH "assets/res/sky.png"
+
 #define GAME_BG_FILEPATH "assets/res/sky.png"
 #define GAME_OVER_BG_FILEPATH "assets/res/sky.png"
+
 #define GAME_TITLE_FILEPATH "assets/res/title.png"
 #define PLAY_BUTTON_FILEPATH "assets/res/PlayButton.png"
 
@@ -22,10 +24,21 @@
 #define PIPE_SPAWN_FREQUENCY 2.0f
 
 #define LAND_FILE_PATH "assets/res/land.png"
+
 #define BIRD_FRAME_1_FILE_PATH "assets/res/bird-01.png"
 #define BIRD_FRAME_2_FILE_PATH "assets/res/bird-02.png"
 #define BIRD_FRAME_3_FILE_PATH "assets/res/bird-03.png"
 #define BIRD_FRAME_4_FILE_PATH "assets/res/bird-04.png"
+
+#define FLAPPY_FONT_FILE_PATH "assets/fonts/FlappyFont.ttf"
+
+#define GAME_OVER_TITLE_FILEPATH "assets/res/Game-Over-Title.png"
+#define GAME_OVER_BODY_FILEPATH "assets/res/Game-Over-Body.png"
+
+#define BRONZE_MEDAL_FILEPATH "assets/res/Bronze-Medal.png"
+#define SILVER_MEDAL_FILEPATH "assets/res/Silver-Medal.png"
+#define GOLD_MEDAL_FILEPATH "assets/res/Gold-Medal.png"
+#define PLATINUM_MEDAL_FILEPATH "assets/res/Platinum-Medal.png"
 
 #define BIRD_ANIMATION_DURATION 0.4f
 
@@ -44,6 +57,13 @@ enum GameStates{
     eGameOver
 };
 
+#define FLASH_SPEED 1500.f
+#define TIME_BEFORE_GAME_OVER_APPEARS 1.5f
 
- 
+#define BRONZE_MEDAL_SCORE 0
+#define SILVER_MEDAL_SCORE 3
+#define GOLD_MEDAL_SCORE 6
+#define PLATINUM_MEDAL_SCORE 9
+
+
 #endif

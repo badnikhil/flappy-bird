@@ -7,7 +7,7 @@
 
 class GameOverState : public State{
     public:
-        GameOverState(GameDataRef data);
+        GameOverState(GameDataRef data , int score);
         void Init() override;
         void HandleInput() override;
         void Update(float dt) override;
@@ -16,10 +16,15 @@ class GameOverState : public State{
         void Draw(float dt) override;
     private:
     GameDataRef _data;
-    sf::Clock _clock;
     sf::Sprite _background;
-    sf::Sprite _title;
+    sf::Sprite _gameOverTitle;
+    sf::Sprite _gameOverContainer;
     sf::Sprite _playButton;
+    sf::Sprite _medal;
+    sf::Text _scoreText;
+    sf::Text _bestScoreText;
+    int _score;
+    int _bestScore = 0;
 };
 
 #endif

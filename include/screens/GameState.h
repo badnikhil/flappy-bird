@@ -7,6 +7,8 @@
 #include "../game/Land.h"
 #include "../game/Bird.h"
 #include "../game/Collision.h"
+#include "../game/Flash.h"
+#include "../game/HUD.h"
 
 class GameState : public State{
     public:
@@ -24,7 +26,11 @@ class GameState : public State{
     sf::Clock _clock;
     Land *land;
     Bird *bird;
+    Flash *flash;
     Collision collision;
+    HUD *hud;
+
     int _gameState;
+    int _score;
 };
 #endif

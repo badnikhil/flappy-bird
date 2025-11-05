@@ -38,7 +38,6 @@ void MainMenuState::Draw(float dt){
     _data->window.draw(_background);
     _data->window.draw(_title);
     _data->window.draw(_playButton);
-    
     _data->window.display();
 }
 
