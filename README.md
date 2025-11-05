@@ -43,23 +43,28 @@ From the project root directory:
 
 ```
 SFML/
-├── assets/               # Game assets (sprites, sounds)
-│   └── sprites/          # Image assets
-├── fonts/                # Font files
-├── include/              # Header files
+├── assets/               # Game assets (sprites, sounds, fonts)
+│   ├── fonts/           # Font files
+│   └── res/             # Image assets
+├── include/             # Header files
+│   ├── AssetManager/    # Asset management system
 │   ├── game/            # Game logic headers
-│   └── screens/         # Screen management headers
+│   ├── InputManager/    # Input handling
+│   └── SplashState/     # Game state management
 ├── src/                 # Source files
-│   ├── game/            # Game logic implementation
-│   └── screens/         # Screen implementations
-├── CMakeLists.txt       # Build configuration
-└── README.md            # This file
+│   ├── AssetManager/    # Asset manager implementation
+│   ├── game/           # Game logic implementation
+│   ├── InputManager/   # Input manager implementation
+│   └── screens/        # Game screens/state implementations
+├── CMakeLists.txt      # Build configuration
+└── README.md           # This file
 ```
 
 ## Dependencies
 
-- SFML (Graphics, Window, System, Audio modules)
-- Standard C++17 Library
+- SFML 2.6.1 or higher (graphics, window, system modules required)
+- C++17 or higher
+- CMake 3.10 or higher
 
 ## Building on Different Platforms
 

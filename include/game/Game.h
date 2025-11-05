@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include "../InputManager/InputManager.h"
-#include "../asset/AssetManager.h"
+#include "../AssetManager/AssetManager.h"
 #include "../state/StateMachine.h"
 
 

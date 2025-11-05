@@ -18,7 +18,7 @@ include_directories(
 add_executable(${PROJECT_NAME} 
     src/main.cpp
     src/InputManager/InputManager.cpp
-    src/asset/AssetManager.cpp
+    src/AssetManager/AssetManager.cpp
     src/game/Game.cpp
     src/state/StateMachine.cpp
     src/SplashState/SplashState.cpp
